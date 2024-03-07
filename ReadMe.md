@@ -1,8 +1,5 @@
-## GARV HAI KI HAMNE YE KHUDSE KIYA HAI (NO CHATGPT!!!)
-### kevdha bhari vattay  - Times, 2024
-### great work bois - Washington Post, 2024
-### best line of code I have every read. chills. literal chills. - Jacob peralta, Feb 2024
-
-pls do not block me :(
-TBD
-time will tell
+### Financial report summarizer
+### Authors
+[Omkar Oak](https://github.com/omkaroak26) $^1$, [Rukmini Nazre](https://github.com/rukmini-17) $^1$, [Rujuta Budke](https://github.com/rujuta13) $^1$ <br>
+$^1$ Under Graduate Student, Computer Science and Engineering Department, College of Engineering Technological University <br>
+Pune, Maharashtra, India. <br>
