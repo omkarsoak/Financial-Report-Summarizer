@@ -194,6 +194,7 @@ def googGraphs():
 
     # Graph 2: Assets, Assets Current, Liabilities Current
     st.subheader("Graph 2: Assets, Assets Current, Liabilities Current")
+    colors = ['#B0C5A4', '#D37676', '#EBC49F', '#F1EF99', '#A78295']
 
     assets = annual['Assets']
     current_assets = annual['Assets, Current']

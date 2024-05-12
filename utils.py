@@ -98,21 +98,26 @@ def _create_idf_matrix(freq_matrix, count_doc_per_words, total_documents):
 
     return idf_matrix
 
-
 def _create_tf_idf_matrix(tf_matrix, idf_matrix):
+    # Initialize an empty dictionary to store the TF-IDF matrix
     tf_idf_matrix = {}
 
-    for (sent1, f_table1), (sent2, f_table2) in zip(tf_matrix.items(), idf_matrix.items()):
-
+    # Iterate through each sentence and its corresponding TF and IDF tables
+    for (sent1, f_table1), (sent2, f_table2) in zip(tf_matrix.items(), 
+                                                    idf_matrix.items()):
         tf_idf_table = {}
 
-        for (word1, value1), (word2, value2) in zip(f_table1.items(),
-                                                    f_table2.items()):  # here, keys are the same in both the table
+        # Iterate through each word and its corresponding TF and IDF values
+        for (word1, value1), (word2, value2) in zip(f_table1.items(), 
+                                                    f_table2.items()):  
+            # Calculate the TF-IDF value for the word and store it in the TF-IDF table
             tf_idf_table[word1] = float(value1 * value2)
 
+        # Store the TF-IDF table for the current sentence in the TF-IDF matrix
         tf_idf_matrix[sent1] = tf_idf_table
 
     return tf_idf_matrix
+
 
 
 def _score_sentences(tf_idf_matrix) -> dict:
@@ -136,16 +141,16 @@ def _score_sentences(tf_idf_matrix) -> dict:
     return sentenceValue
 
 
+#Find the average score from the sentence value dictionary
 def _find_average_score(sentenceValue) -> int:
-    """
-    Find the average score from the sentence value dictionary
-    :rtype: int
-    """
     sumValues = 0
+    
+    # Iterate through each entry in the sentenceValue dictionary
     for entry in sentenceValue:
+        # Add the value of the current entry to the sumValues
         sumValues += sentenceValue[entry]
 
-    # Average value of a sentence from original summary_text
+    # Calculate the average value of a sentence
     average = (sumValues / len(sentenceValue))
 
     return average
@@ -155,61 +160,48 @@ def _generate_summary(sentences, sentenceValue, threshold):
     sentence_count = 0
     summary = ''
 
+    # Iterate through each sentence in the list of sentences
     for sentence in sentences:
+        # Check if the first 15 characters of the sentence exist in the sentenceValue dictionary
+        # and if the corresponding value is greater than or equal to the threshold
         if sentence[:15] in sentenceValue and sentenceValue[sentence[:15]] >= (threshold):
+            # If the conditions are met, add the sentence to the summary
             summary += " " + sentence
             sentence_count += 1
 
     return summary
 
 
-def run_summarization(text):
-    """
-    :param text: Plain summary_text of long article
-    :return: summarized summary_text
-    """
+
+def run_summarization(text, n):
 
     # 1 Sentence Tokenize
     sentences = sent_tokenize(text)
     total_documents = len(sentences)
-    #print(sentences)
 
     # 2 Create the Frequency matrix of the words in each sentence.
     freq_matrix = _create_frequency_matrix(sentences)
-    #print(freq_matrix)
 
     # 3 Calculate TermFrequency and generate a matrix
     tf_matrix = _create_tf_matrix(freq_matrix)
-    #print(tf_matrix)
 
     # 4 creating table for documents per words
     count_doc_per_words = _create_documents_per_words(freq_matrix)
-    #print(count_doc_per_words)
 
     # 5 Calculate IDF and generate a matrix
-    idf_matrix = _create_idf_matrix(freq_matrix, count_doc_per_words, total_documents)
-    #print(idf_matrix)
+    idf_matrix = _create_idf_matrix(freq_matrix, count_doc_per_words, 
+                                    total_documents)
 
     # 6 Calculate TF-IDF and generate a matrix
     tf_idf_matrix = _create_tf_idf_matrix(tf_matrix, idf_matrix)
-    #print(tf_idf_matrix)
 
     # 7 Important Algorithm: score the sentences
     sentence_scores = _score_sentences(tf_idf_matrix)
-    #print(sentence_scores)
 
     # 8 Find the threshold
     threshold = _find_average_score(sentence_scores)
-    #print(threshold)
 
     # 9 Important Algorithm: Generate the summary
-    n = 1.5
-
-    #n inversely proportional to summary size
-    #0.3 -> 1000
-    #0.9 -> 400
-    #1.3 -> 200
-    # 2.3 -> 160
-
     summary = _generate_summary(sentences, sentence_scores, n * threshold)
+
     return summary
