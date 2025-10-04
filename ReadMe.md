@@ -2,6 +2,16 @@
 
 A comprehensive tool for analyzing and summarizing SEC 10-K filings using TF-IDF text summarization techniques. This application extracts, processes, and visualizes financial data from major tech companies (AAPL, GOOG, NVDA, TSLA etc.) directly from the SEC EDGAR database.
 
+<div align="center">
+<table>
+    <tr>
+        <td><img src="assests/homepage.png" alt="Application homepage showing company selection and summary options in a clean, modern interface" width=300px/><br/>Homepage</td>
+        <td><img src="assests/summary.png" alt="Summary section displaying extracted key points from a 10-K filing with clear headings and bullet points" width=300px/><br/>Summary</td>
+        <td><img src="assests/graphs.png" alt="Graphs section with colorful line and bar charts visualizing financial metrics over time" width=300px/><br/>Graphs</td>
+    </tr>
+</table>
+</div>
+
 ## Features
 
 - **Automated SEC Data Scraping**: Fetch 10-K filings directly from SEC EDGAR database
