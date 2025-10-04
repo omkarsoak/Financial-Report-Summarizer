@@ -1,8 +1,8 @@
 import streamlit as st
 import time
-from src.edgar_functions import *
-from src.graphs import *
-from src.utils import run_summarization
+from utils.edgar_functions import *
+from utils.graphs import *
+from utils.model import run_summarization
 
 def nextpage():
     st.session_state.page += 1
